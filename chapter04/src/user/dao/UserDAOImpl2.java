@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
@@ -58,7 +59,7 @@ public class UserDAOImpl extends JdbcDaoSupport implements UserDAO {
 //NamedParameterJdbcDaoSupport 가장 최근에 나옴
 //NamedParameter 파라미터에 이름 부여 가능 
 //이전에 사용하던 메소드 다 호출 가능 
-public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements UserDAO {
+public class UserDAOImpl2 extends NamedParameterJdbcDaoSupport implements UserDAO {
 
 	@Override
 	public void write(UserDTO userDTO) {
@@ -78,6 +79,20 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements UserDAO
 		String sql = "select * from usertable";
 		return getJdbcTemplate().query(sql, new BeanPropertyRowMapper<UserDTO>(UserDTO.class));
 	}
+	
+	@Override
+	public UserDTO getUser(String id) {
+		String sql = "select * from usertable where id=?";
+		try {return getJdbcTemplate().queryForObject(  // 한사람 분량만 꺼내온다.
+					sql,
+					new BeanPropertyRowMapper<UserDTO>(),
+					id);
+		}catch(EmptyResultDataAccessException e) {
+			return null;
+		}
+		
+		
+	}
 
 	@Override
 	public void update(UserDTO userDTO) {
@@ -93,6 +108,13 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements UserDAO
 	}
 
 	@Override
+	public void update2(Map<String, String> map) {
+		String sql = "update usertable set name=:name, pwd=:pwd where id=:id";
+		getNamedParameterJdbcTemplate().update(sql, map);
+	}
+	
+	
+	@Override
 	public void delete(UserDTO userDTO) {
 		String sql = "delete from usertable where id=:id";
 		Map<String, String> map = new HashMap<>();
@@ -100,6 +122,16 @@ public class UserDAOImpl extends NamedParameterJdbcDaoSupport implements UserDAO
 		getNamedParameterJdbcTemplate().update(sql, map);
 		
 	}
+
+	@Override
+	public void delete2(String id) {
+		String sql = "delete from usertable where id=:id";
+		getJdbcTemplate().update(sql, id);
+	}
+
+	
+
+	
 
 		
 }

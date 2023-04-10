@@ -8,53 +8,68 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
 
-<!-- Connection Pool  &  DataSource-->
-<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-	<property name="driveClassName" value="oracle.jdbc.driver.OracleDriver"/>
-	<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
-	<property name="username" value="c##java"/>
-	<property name="password" value="1234"/>
-</bean> -->
-<!-- <bean id="dataSource"
-	  class="org.apache.commons.dbcp2.BasicDataSource"
-	  p:driverClassName="oracle.jdbc.driver.OracleDriver"
-	  p:url="jdbc:oracle:thin:@localhost:1521:xe"
-	  p:username="c##java"
-	  p:password="1234"/> -->
+	<!-- Connection Pool & DataSource -->
+	<!-- <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe" />
+		<property name="username" value="c##java" />
+		<property name="password" value="1234" />
+	</bean> -->
+	
+	<!-- <bean id="dataSource" 
+		  class="org.apache.commons.dbcp2.BasicDataSource"
+		  p:driverClassName="oracle.jdbc.driver.OracleDriver"
+		  p:url="jdbc:oracle:thin:@localhost:1521:xe"
+		  p:username="c##java"
+		  p:password="1234" /> -->
+		  
+	<!-- db.properties / .properties 앞(db)부분은 자유롭게 이름짓기 가능하다  -->	 
+	<context:property-placeholder location="classpath:spring/db.properties"/>
+	<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<property name="url" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+	</bean>
 
-<context:property-placeholder location="classpath:spring/db.properties"/>
-<bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource">
-	<property name="driverClassName" value="${jdbc.driver}"/>
-	<property name="url" value="${jdbc.url}"/>
-	<property name="username" value="${jdbc.username}"/>
-	<property name="password" value="${jdbc.password}"/>
-</bean> 
-
-<bean id="helloSpring" class="user.main.HelloSpring"></bean>
-
-<bean id="userInsertService" class="user.service.UserInsertService">
-	<property name="userDTO" ref="userDTO"></property>
-	<property name="userDAO" ref="userDAOImpl"></property>
-</bean>
-
-<bean id="userSelectService" class="user.service.UserSelectService">
-	<property name="userDAO" ref="userDAOImpl"></property>
-</bean>
-
-<bean id="userUpdateService" class="user.service.UserUpdateService"></bean>
-
-<bean id="userDeleteService" class="user.service.UserDeleteService"></bean>
-
-<bean id="userDTO" class="user.bean.UserDTO"></bean>
-
-<bean id="userDAOImpl" class="user.dao.UserDAOImpl">
-	<!-- <property name="jdbcTemplate" ref="jdbcTemplate"></property> -->
-	<property name="dataSource" ref="dataSource"/>
-</bean>
-<!-- JdbcDaoSuport 상속하엿으므로 jdbcTemplate을 빈으로 생성할 필요없어 -->
-<!-- <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-	<constructor-arg ref="dataSource"/>
-</bean> -->
-
+	<!-- bean 생성은 자바로 생각하면 class 를 new 한 것과 같다 -->
+	<bean id="helloSpring" class="user.main.HelloSpring"></bean>
+	
+	<bean id="userInsertService" class="user.service.UserInsertService">
+		<property name="userDTO" ref="userDTO" />
+		<property name="userDAO" ref="userDAOImpl" />
+	</bean>
+	<bean id="userSelectService" class="user.service.UserSelectService">
+		<property name="userDAO" ref="userDAOImpl" />
+	</bean>
+	<!-- <bean id="userUpdateService" class="user.service.UserUpdateService"> -->
+	<bean id="userUpdateService2" class="user.service.UserUpdateService2">
+		<property name="userDAO" ref="userDAOImpl" />
+	</bean>
+	
+	<bean id="userDeleteService" class="user.service.UserDeleteService2">
+		<property name="userDAO" ref="userDAOImpl" />
+	</bean>
+	
+	<bean id="userDTO" class="user.bean.UserDTO" ></bean>
+	
+<!-- 	<bean id="userDAOImpl" class="user.dao.UserDAOImpl"> -->
+	<bean id="userDAOImpl" class="user.dao.UserDAOImpl2">
+		<!-- <property name="jdbcTemplate" ref="jdbcTemplate" /> -->
+		<property name="dataSource" ref="dataSource" /> 
+		<!-- userDAOImpl에 dataSource 메소드를 가지고 있지 않기 때문에 부모 클래스 JdbcDaoSupport에 가서 찾는다. -->
+	</bean>
+	
+	
+	<!-- 
+	JdbcDaoSupport 상속 하였으므로 jdbcTemplate을 빈으로 생성할 필요가 없다. 
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+		<constructor-arg ref="dataSource" />
+	</bean> -->
 
 </beans>
+
+
+
+
