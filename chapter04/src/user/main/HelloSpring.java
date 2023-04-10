@@ -7,47 +7,51 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import user.service.UserService;
 
+
 public class HelloSpring {
-	
-	public void menu(ApplicationContext context) {
-		Scanner scan = new Scanner(System.in);
+	public void menu(ApplicationContext applicationContext) {
+		Scanner scanner = new Scanner(System.in);
 		UserService userService = null;
-		int num;
 		
-		while(true) {
-			System.out.println("**************");
-			System.out.println("  1. 입력");
-			System.out.println("  2. 출력");
-			System.out.println("  3. 수정");
-			System.out.println("  4. 삭제 ");
-			System.out.println("  5. 끝");
-			System.out.println("**************");
-			System.out.print("번호 입력 : ");
-			num = scan.nextInt();
-			
-			if(num == 5) break;
-			
-			if(num == 1) userService =  (UserService)context.getBean("userInsertService");
-			else if(num == 2) userService = (UserService)context.getBean("userSelectService");
-			else if(num == 3) userService = (UserService)context.getBean("userUpdateService2");
-			else if(num == 4) userService = (UserService)context.getBean("userDeleteService");
-			
+		while (true) {
+			System.out.println("===== MENU =====");
+			System.out.println(" 1. 입력");
+			System.out.println(" 2. 출력");
+			System.out.println(" 3. 수정");
+			System.out.println(" 4. 삭제");
+			System.out.println(" 5. 종료");
+			System.out.println("================");
+			System.out.print("SELECT NUMBER: ");
+			int num = scanner.nextInt();
+			System.out.println();
+
+			if (num == 5) {
+				break;
+			} else if (num == 1) {
+				userService = (user.service.UserService) applicationContext.getBean("userInsertService");
+			} else if (num == 2) {
+				userService = (user.service.UserService) applicationContext.getBean("userSelectService");
+			} else if (num == 3) {
+				userService = (user.service.UserService) applicationContext.getBean("userUpdateService");
+			} else if (num == 4) {
+				userService = (user.service.UserService) applicationContext.getBean("userDeleteService");
+			} else {
+				System.out.println("다시 입력하세요");
+				System.out.println();
+				continue;
+			}
 			userService.execute();
-			
-		}//while
-	}//menu()
-	
-	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
-		HelloSpring helloSpring = (HelloSpring) context.getBean("helloSpring");
-		helloSpring.menu(context);
-		System.out.println("프로그램을 종료합니다.");
+		} // while
+
 	}
 
+	public static void main(String[] args) {
+		ApplicationContext applicationContext = new ClassPathXmlApplicationContext("spring/applicationContext.xml");
+		HelloSpring helloSpring = (HelloSpring) applicationContext.getBean("helloSpring");
+		helloSpring.menu(applicationContext);
+		
+		System.out.println("프로그램 종료");
+		
+		
+	}
 }
-
-
-
-
-
-
