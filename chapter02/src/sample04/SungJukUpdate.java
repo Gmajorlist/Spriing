@@ -22,6 +22,7 @@ public class SungJukUpdate implements SungJuk{
 		System.out.println("수정 할 이름 입력 :");
 		String name = sc.next();
 		
+		
 		int sw=0;
 		for(SungJukDTO2 sungJukDTO2  : list) {
 			if(sungJukDTO2.getName().equals(name)) {
