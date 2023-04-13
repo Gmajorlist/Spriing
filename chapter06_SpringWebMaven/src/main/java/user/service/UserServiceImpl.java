@@ -1,26 +1,52 @@
 package user.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import user.bean.UserDTO;
+import user.bean.UserPaging;
 import user.dao.UserDAO;
 
 @Service
 public class UserServiceImpl implements UserService {
 	@Autowired
 	private UserDAO userDAO;
-
+	@Autowired
+	private UserPaging userPaging = null;
 	@Override
 	public void write(UserDTO userDTO) {
 		userDAO.write(userDTO);
 	}
 
 	@Override
-	public List<UserDTO> getUserList() {
-		return userDAO.getUserList();
+	public Map<String, Object> getUserList(String pg) {
+		int endNum= Integer.parseInt(pg) * 3;
+		int startNum= endNum - 2;
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		
+		List<UserDTO> list = userDAO.getUserList(map);
+		
+		//페이징처리 = 1페이지당 3개씩
+		int totalA = userDAO.getTotalA(); //총글수
+		
+		userPaging.setCurrentPage(Integer.parseInt(pg));
+		userPaging.setPageBlock(3);
+		userPaging.setPageSize(3);
+		userPaging.setTotalA(totalA);
+		
+		userPaging.makePagingHTML();
+		Map<String, Object> map2 = new HashMap<String, Object>();
+		map2.put("list", list);
+		map2.put("userPaging", userPaging);
+		
+		return map2;
 	}
 
 	@Override
