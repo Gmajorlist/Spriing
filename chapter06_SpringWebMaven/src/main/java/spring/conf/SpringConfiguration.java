@@ -57,21 +57,24 @@ public class SpringConfiguration {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
+
+
+/*
+ * 만약에 mapper.xml이 여러개일 경우
+ * 1.
+ * sqlSessionFactoryBean.setMapperLocations(new ClassPathResource("user/dao/userMapper.xml"),
+ * 											new ClassPathResource("member/dao/memberMapper.xml"),
+ * 											new ClassPathResource("board/dao/boardMapper.xml"),
+ * 											....);
+ * 
+ * 
+ * 2.
+ * 필드 
+ * @AutoWired
+ * private ApplicationContext context;
+ */
+ // sqlSessionFactoryBean.setMapperLocations(context.getResources("classPath:*/dao/*Mapper.xml));
+ 
+
+		

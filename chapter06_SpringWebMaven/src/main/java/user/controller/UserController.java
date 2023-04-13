@@ -81,6 +81,7 @@ public class UserController {
 	public void delete(@RequestParam String id) {
 		userService.delete(id);
 	}
+	
 }
 
 

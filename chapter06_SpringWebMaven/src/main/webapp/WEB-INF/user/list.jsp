@@ -23,7 +23,7 @@
 </head>
 <body>
 <h3>
-	<a href="/chapter06_SpringWebMaven/"><img src="/chapter06_SpringWebMaven/img/insta.PNG" width="50" height="50"></a>
+	<a href="/chapter06_SpringWebMaven/"><img src="../img/insta.PNG" width="50" height="50"></a>
 	목록
 </h3>
 
