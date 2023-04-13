@@ -44,6 +44,7 @@ public class UserController2 {
 			
 			e.printStackTrace();
 		}
-		return "<img src='../storage/" + fileName + "'width='300' height='300'/>";
+		
+		return "<img src='../storage/" + fileName + "' width='300' height='300'/>";
 	}
 }

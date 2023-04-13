@@ -11,7 +11,7 @@
 <form method="post" enctype="multipart/form-data" action="/chapter06_SpringWebMaven/user/upload">
 	<input type="file" name="img">
 	<br/><br/>
-	<input type="button" value="이미지 등록">
+	<input type="submit" value="이미지 등록">
 </form>
 
 
