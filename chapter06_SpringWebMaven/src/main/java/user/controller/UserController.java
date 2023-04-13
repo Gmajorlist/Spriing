@@ -27,27 +27,65 @@ public class UserController {
 	
 	@PostMapping(value="write")
 	@ResponseBody
-	public void write(@ModelAttribute UserDTO userDTO) {
-		userService.write(userDTO);
+	public void write(@ModelAttribute UserDTO userDTO){
+		userService.write(userDTO);		
 	}
 	
 	@GetMapping(value="list")
 	public String list() {
-		//DB를 가지않고 바로 화면에 틀만 띄운다.
+		//DB를 거치지 않고 바로 화면에 틀만 띄운다.
 		return "user/list";
 	}
 	
 	@PostMapping(value="getUserList")
 	@ResponseBody
-	public List<UserDTO> getUserList() {
-		
+	public List<UserDTO> getUserList(){
 		return userService.getUserList();
 	}
 	
 	@PostMapping(value="isExistId")
 	@ResponseBody
 	public String isExistId(@RequestParam String id) {
-		
 		return userService.isExistId(id);
+		
+	}
+	
+	@GetMapping(value="updateForm")
+	public String updateForm() {
+		return "user/updateForm";
+	}
+	
+	@PostMapping(value="getUser")
+	@ResponseBody
+	public UserDTO getUser(@RequestParam String id) {
+		return userService.getUser(id);
+	}
+	@PostMapping(value="update")
+	@ResponseBody
+	public void update(@ModelAttribute UserDTO userDTO) {
+		userService.update(userDTO);
+	}
+	@GetMapping(value="deleteForm")
+	public String deleteForm() {
+		return "user/deleteForm";
+	}
+	
+	@PostMapping(value="delete")
+	@ResponseBody
+	public void delete(@RequestParam String id) {
+		userService.delete(id);
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

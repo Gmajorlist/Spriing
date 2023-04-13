@@ -1,28 +1,25 @@
 package user.dao;
 
 import java.util.List;
-import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
-
 import user.bean.UserDTO;
-@Transactional
+
 @Repository
+@Transactional
 public class UserDAOMyBatis implements UserDAO {
 	@Autowired
 	private SqlSession sqlSession;
-
-	@Transactional
+	
 	@Override
 	public void write(UserDTO userDTO) {
 		sqlSession.insert("userSQL.write", userDTO);
-		
 	}
 
-	@Transactional
 	@Override
 	public List<UserDTO> getUserList() {
 		return sqlSession.selectList("userSQL.getUserList");
@@ -33,15 +30,29 @@ public class UserDAOMyBatis implements UserDAO {
 		return sqlSession.selectOne("userSQL.getUser", id);
 	}
 
-//	@Override
-//	public void update(Map<String, String> map) {
-//		sqlSession.update("userSQL.update", map);
-//	}
-//
-//	@Override
-//	public int delete(String id) {
-//		return sqlSession.delete("userSQL.delete", id);
-//		
-//	}
+	@Override
+	public void update(UserDTO userDTO) {
+		sqlSession.update("userSQL.update", userDTO);
+		
+	}
+
+	@Override
+	public void delete(String id) {
+		sqlSession.delete("userSQL.delete", id);
+		
+	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

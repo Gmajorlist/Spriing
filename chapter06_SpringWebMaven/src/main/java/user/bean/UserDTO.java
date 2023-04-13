@@ -1,11 +1,12 @@
 package user.bean;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class UserDTO {
-	private String id;
 	private String name;
+	private String id;
 	private String pwd;
-	
 }

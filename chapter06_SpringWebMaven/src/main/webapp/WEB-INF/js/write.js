@@ -1,18 +1,19 @@
+//등록
 $('#writeBtn').click(function(){
 	$('#nameDiv').empty();
 	$('#idDiv').empty();
 	$('#pwdDiv').empty();
 	
 	if($('#name').val() == ''){
-		$('#nameDiv').text('이름을 입력해주세요');
+		$('#nameDiv').text('이름 입력');
 		$('#name').focus();
 		
 	}else if($('#id').val() == ''){
-		$('#idDiv').text('아이디를 입력해주세요');
+		$('#idDiv').text('아이디 입력');
 		$('#id').focus();
 		
 	}else if($('#pwd').val() == ''){
-		$('#pwdDiv').text('비밀번호를 입력해주세요');
+		$('#pwdDiv').text('비밀번호 입력');
 		$('#pwd').focus();
 	
 	}else{
@@ -35,19 +36,20 @@ $('#writeBtn').click(function(){
 $('#id').focusout(function(){
 	$('#idDiv').empty();
 	
-	if('#id').val() == ''){
+	if($('#id').val() == '') {
 		$('#idDiv').text('먼저 아이디를 입력');
 		$('#id').focus();
 	}else{
 		$.ajax({
 			type: 'post',
 			url: '/chapter06_SpringWebMaven/user/isExistId',
-			data: 'id=' + $('#id').val(), //서버로 보내는 데이터
-			dataType: text, //서버로부터 받는 데이터 자료형 text/ json / xml
-							// 아이디가 있으면 "exist", 아이디가 없으면 "non_exist"
+			data: 'id=' + $('#id').val(),//서버로 보내는 데이터
+			dataType: 'text', //서버로 받는 데이터형 , text, json, xml
+			                // 아이디가 있으면 "exist", 아이디가 없으면 "non_exist"
 			success: function(data){
 				if(data == 'exist'){
 					$('#idDiv').text('사용 불가능');
+					
 				}else if(data == 'non_exist'){
 					$('#idDiv').text('사용 가능');
 					$('#idDiv').css('color', 'blue');
@@ -57,5 +59,19 @@ $('#id').focusout(function(){
 				console.log(err);
 			}
 		});
-	} //else
+	}//else
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -9,29 +9,16 @@
 <body>
 <h3>
 	<a href="/chapter06_SpringWebMaven/"><img src="/chapter06_SpringWebMaven/img/insta.PNG" width="50" height="50"></a>
-	목록
+	회원 탈퇴
 </h3>
+<br>
 
-
-<table id="userListTable" border="1" frame="hsides" rules="rows" cellspacing="0" cellpadding="5">
-	<tr>
-		<th width="200">이름</th>
-		<th width="200">아이디</th>
-		<th width="200">비밀번호</th>
-	</tr>
-	
-	<!-- 동적 처리 -->
-	
-</table>
-
+<p>
+	삭제할 아이디 입력 : <input type="text" id="searchId">
+	<input type="button" id="searchIdBtn" value="검색">
+</p>
+<div id="resultDiv"></div>
 <script type="text/javascript" src="http://code.jquery.com/jquery-3.6.4.min.js"></script>
-<script type="text/javascript" src="../js/list.js"></script>
+<script type="text/javascript" src="../js/delete.js"></script>
 </body>
 </html>
-
-
-
-
-
-
-

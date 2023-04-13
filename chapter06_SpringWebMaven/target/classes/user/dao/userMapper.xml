@@ -2,24 +2,68 @@
 <!DOCTYPE mapper
  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
- <mapper namespace="userSQL">  
- 	
- 	<insert id="write" parameterType="user">   
- 		insert into usertable values(#{name} , #{id} , #{pwd})
- 	</insert>
- 	
- 	<select id="getUser" parameterType="String" resultMap="userResult">
- 		select * from usertable where id=#{id}
- 	</select>
- 	
- 	<update id="update" parameterType="java.util.Map">
- 		update usertable set name=#{name}, pwd=#{pwd} where id=#{id}
- 	</update>
+<mapper namespace="userSQL">
+
+	<insert id="write" parameterType="user">
+		insert into usertable values(#{name}, #{id}, #{pwd})
+	</insert>
+	
+	<select id="getUserList" resultType="user.bean.UserDTO">
+		select * from usertable
+	</select>
+		
+	<select id="getUser" parameterType="String" resultType="user">
+		select * from usertable where id=#{id}
+	</select>
+	
+	<update id="update" parameterType="java.util.Map">
+		update usertable set name=#{name}, pwd=#{pwd} where id=#{id}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete usertable where id=#{id}
+	</delete>
+	
+	<select id="search" parameterType="java.util.Map" resultType="user">
+		<!-- XML -->
+		<!-- 
+		select * from usertable where 
+		<if test="columnName == 'name'">
+			name like '%' || #{value} || '%'
+		</if>
+		<if test="columnName == 'id'">
+			id like '%' || #{value} || '%' 
+		</if>
+		-->
+		
+		<!-- 
+		select * from usertable where 
+		<choose>
+			<when test="columnName == 'name'">
+				name like '%' || #{value} || '%'
+			</when>
+			<otherwise>
+				id like '%' || #{value} || '%' 
+			</otherwise>
+		</choose>
+		 -->
+		
+		select * from usertable where ${columnName} like '%' || #{value} || '%'
+		
+	</select>
+</mapper>
  
- 	<delete id="delete" parameterType="String">
-  		delete from usertable where id=#{id}
-   </delete>  
- 	
- 	
- 	
- </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
