@@ -13,7 +13,10 @@
 	<p><a href="/chapter06_SpringWebMaven/user/list">출력</a></p>
 	<p><a href="/chapter06_SpringWebMaven/user/updateForm">수정</a></p>
 	<p><a href="/chapter06_SpringWebMaven/user/deleteForm">삭제</a></p>
-	<p><a href="/chapter06_SpringWebMaven/user/uploadForm">업로드</a></p>
+	
+	<p><a href="/chapter06_SpringWebMaven/user/uploadForm">업로드(DB안가)</a></p>
+	<p><a href="/chapter06_SpringWebMaven/user/uploadForm_Ajax">업로드_Ajax</a></p>
+	<p><a href="/chapter06_SpringWebMaven/user/uploadForm_Ajax_list">이미지 출력</a></p>
 </h4>
 </body>
 </html>
